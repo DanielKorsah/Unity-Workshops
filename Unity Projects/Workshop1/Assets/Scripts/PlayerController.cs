@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     Camera myCamera;
 
+    bool isJumping;
+
     public float currentHealth, maximumHealth;
 
     void Awake()
@@ -48,7 +50,14 @@ public class PlayerController : MonoBehaviour
         Vector3 inputVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         inputVelocity = inputVelocity * movementSpeed * Time.deltaTime;
 
-        rb.MovePosition(transform.position + (transform.forward * inputVelocity.z) + (transform.right * inputVelocity.x));
+        if (!isJumping)
+        {
+            rb.MovePosition(transform.position + (transform.forward * inputVelocity.z) + (transform.right * inputVelocity.x));
+        }
+        else
+        {
+            rb.MovePosition(transform.position + rb.velocity);
+        }
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
