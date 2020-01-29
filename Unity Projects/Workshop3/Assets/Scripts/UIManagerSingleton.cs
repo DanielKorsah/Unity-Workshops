@@ -28,10 +28,7 @@ public class UIManagerSingleton : MonoBehaviour
             //an instance already exists so destroy this object
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
         textObject = GameObject.Find("ScoreText").GetComponent<Text>();
         hpBar = GameObject.Find("fronthp").GetComponent<Image>();
         heart = GameObject.Find("heartImage").GetComponent<Image>();
@@ -40,10 +37,15 @@ public class UIManagerSingleton : MonoBehaviour
     public void UpdateHealthText(float newHp, float maxHP)
     {
         float percent = newHp / maxHP;
-        Debug.Log("HP percentage: " + percent);
-        Debug.Log("HP vals: " + newHp + maxHP);
+        //Debug.Log("HP percentage: " + percent);
+        //Debug.Log("HP vals: " + newHp + maxHP);
         textObject.text = "Health: " + newHp + "/" + maxHP;
         hpBar.fillAmount = percent;
         heart.fillAmount = percent;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

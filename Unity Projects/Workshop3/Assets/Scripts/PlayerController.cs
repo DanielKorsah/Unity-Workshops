@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     Camera myCamera;
     bool isJumping = false;
+    bool mouseIsLocked = true;
 
     public float currentHealth, maximumHealth;
 
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
         {
             canDoDamage = true;
         }
+
+        ToggleMouse();
 
     }
 
@@ -124,13 +127,32 @@ public class PlayerController : MonoBehaviour
     {
         //subtract hp
         currentHealth -= 20;
-        Debug.Log("new hp: " + currentHealth + "/" + maximumHealth);
+        //Debug.Log("new hp: " + currentHealth + "/" + maximumHealth);
         //notify UI
         UIManagerSingleton.Instance.UpdateHealthText(currentHealth, maximumHealth);
         //reset the damage cooldown
         counter = cooldownTime;
         canDoDamage = false;
 
+    }
+
+    void ToggleMouse()
+    {
+        //input cancel is escape by default
+        if(Input.GetButtonDown("Cancel"))
+        {
+            if(mouseIsLocked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+        }
     }
 
 }
